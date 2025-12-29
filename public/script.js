@@ -50,38 +50,43 @@ function renderGrid() {
     
     currencyData.forEach(curr => {
         const midRate = 1 / currentRates[curr.code];
-        // Simulación de margen bancario (Spread)
-        const buyRate = midRate * 0.985; // -1.5% para compra
-        const sellRate = midRate * 1.015; // +1.5% para venta
+        // Ajustamos el spread a 0.5% para que sea más sutil y cercano a Google
+        const spread = 0.005; 
+        const buyRate = midRate * (1 - spread); 
+        const sellRate = midRate * (1 + spread);
 
         grid.innerHTML += `
             <div class="col-lg-3 col-md-6">
                 <div class="cyber-card border-${curr.color}">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
                         <img src="https://flagcdn.com/w80/${curr.flag}.png" class="flag-icon">
                         <span class="badge border border-${curr.color} text-white">${curr.code}</span>
                     </div>
                     
-                    <div class="text-center mb-3">
-                        <p class="small text-muted mb-1">${curr.name}</p>
+                    <div class="text-center mb-2">
+                        <p class="small text-muted mb-0">${curr.name}</p>
+                        <!-- TASA REFERENCIA (Igual a Google) -->
+                        <small class="text-secondary" style="font-size: 0.75rem;">
+                            Ref (Google): <span class="text-white fw-bold">${midRate.toFixed(2)}</span>
+                        </small>
                     </div>
 
-                    <div class="row g-0 border-top border-secondary pt-3">
+                    <div class="row g-0 border-top border-secondary pt-2">
                         <div class="col-6 text-center border-end border-secondary">
                             <small class="text-neon-blue d-block mb-1" style="font-size: 0.7rem; font-weight: bold;">COMPRA</small>
-                            <div class="rate-display buy-rate" id="rate-buy-${curr.code}" data-base="${buyRate}" style="font-size: 1.2rem; color: #00F3FF;">
+                            <div class="rate-display buy-rate" id="rate-buy-${curr.code}" data-base="${buyRate}" style="font-size: 1.1rem; color: #00F3FF;">
                                 ${buyRate.toFixed(2)}
                             </div>
                         </div>
                         <div class="col-6 text-center">
                             <small class="text-neon-yellow d-block mb-1" style="font-size: 0.7rem; font-weight: bold; color: #FFD700;">VENTA</small>
-                            <div class="rate-display sell-rate" id="rate-sell-${curr.code}" data-base="${sellRate}" style="font-size: 1.2rem; color: #FFD700;">
+                            <div class="rate-display sell-rate" id="rate-sell-${curr.code}" data-base="${sellRate}" style="font-size: 1.1rem; color: #FFD700;">
                                 ${sellRate.toFixed(2)}
                             </div>
                         </div>
                     </div>
 
-                    <div id="chart-${curr.code}" class="mt-3" style="height: 150px; width: 100%;"></div>
+                    <div id="chart-${curr.code}" class="mt-2" style="height: 120px; width: 100%;"></div>
                 </div>
             </div>`;
     });
