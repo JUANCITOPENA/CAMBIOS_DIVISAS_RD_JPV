@@ -90,12 +90,12 @@ function renderGrid() {
                 trigger: 'axis',
                 formatter: function (params) {
                     const date = new Date(params[0].name).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
-                    return `${date}<br/>Val: ${params[0].value}`;
+                    return `<div style="text-align:left;"><b>${date}</b><br/>Tasa: ${params[0].value}</div>`;
                 }
             },
             grid: {
-                left: '10%',
-                right: '10%',
+                left: '12%', // Más espacio para el eje Y
+                right: '5%',
                 bottom: '10%',
                 top: '15%',
                 containLabel: true
@@ -104,16 +104,33 @@ function renderGrid() {
                 type: 'category',
                 data: categories,
                 axisLabel: {
-                    color: '#888',
-                    formatter: (value) => new Date(value).toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit' })
+                    color: '#aaa',
+                    fontSize: 10,
+                    formatter: (value) => {
+                        // Obtener las 3 primeras letras del mes en mayúsculas
+                        const date = new Date(value);
+                        return date.toLocaleDateString('es-ES', { month: 'short' }).substring(0, 3).toUpperCase();
+                    }
                 },
-                axisLine: { show: false },
+                axisLine: { show: true, lineStyle: { color: '#333' } },
                 axisTick: { show: false }
             },
             yAxis: {
                 type: 'value',
-                show: false, // Ocultar eje Y para limpieza, ya que tenemos tooltip
-                scale: true
+                show: true,
+                scale: true, // No empezar en 0, adaptar a los datos
+                axisLabel: {
+                    color: '#aaa',
+                    fontSize: 10,
+                    formatter: '{value}'
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#222', // Líneas de guía muy sutiles
+                        type: 'dashed'
+                    }
+                }
             },
             series: [
                 {
@@ -132,11 +149,23 @@ function renderGrid() {
                          color: curr.color === 'blue' ? '#00f3ff' : curr.color === 'purple' ? '#bc13fe' : '#0aff0a'
                     },
                     markPoint: {
+                        symbolSize: 50, // Burbuja más grande para legibilidad
+                        label: {
+                            show: true,
+                            // Lógica de contraste: Verde/Azul neon son claros -> Texto negro. Morado es oscuro -> Texto blanco.
+                            color: curr.color === 'purple' ? '#ffffff' : '#000000',
+                            fontSize: 11,
+                            fontWeight: 'bold',
+                            formatter: '{c}'
+                        },
                         data: [
                             { type: 'max', name: 'Max' },
                             { type: 'min', name: 'Min' }
                         ],
-                        label: { color: '#fff' }
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowColor: curr.color === 'blue' ? '#00f3ff' : curr.color === 'purple' ? '#bc13fe' : '#0aff0a'
+                        }
                     }
                 }
             ]
