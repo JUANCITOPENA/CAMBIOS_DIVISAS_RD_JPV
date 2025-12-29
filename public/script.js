@@ -63,20 +63,91 @@ function renderGrid() {
                         </div>
                         <p class="small text-muted mb-2">${curr.name}</p>
                     </div>
-                    <div id="chart-${curr.code}"></div>
+                    <div id="chart-${curr.code}" style="height: 200px; width: 100%;"></div>
                 </div>
             </div>`;
     });
 
     currencyData.forEach(curr => {
         const rate = 1 / currentRates[curr.code];
-        new ApexCharts(document.querySelector(`#chart-${curr.code}`), {
-            series: [{ data: Array.from({length: 10}, () => rate * (1 + (Math.random()*0.02-0.01))) }],
-            chart: { type: 'area', height: 80, sparkline: { enabled: true } },
-            colors: [curr.color === 'blue' ? '#00f3ff' : curr.color === 'purple' ? '#bc13fe' : '#0aff0a'],
-            stroke: { curve: 'smooth', width: 2 },
-            fill: { type: 'gradient', gradient: { opacityFrom: 0.4, opacityTo: 0 } }
-        }).render();
+        const chartDom = document.getElementById(`chart-${curr.code}`);
+        const myChart = echarts.init(chartDom);
+        
+        // Generar datos simulados para los últimos 6 meses
+        const data = [];
+        const categories = [];
+        const today = new Date();
+        for (let i = 5; i >= 0; i--) {
+            const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            categories.push(date.toISOString()); // Guardar fecha completa
+            // Variación aleatoria basada en la tasa actual
+            const value = rate * (1 + (Math.random() * 0.1 - 0.05));
+            data.push(value.toFixed(2));
+        }
+
+        const option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params) {
+                    const date = new Date(params[0].name).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
+                    return `${date}<br/>Val: ${params[0].value}`;
+                }
+            },
+            grid: {
+                left: '10%',
+                right: '10%',
+                bottom: '10%',
+                top: '15%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: categories,
+                axisLabel: {
+                    color: '#888',
+                    formatter: (value) => new Date(value).toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit' })
+                },
+                axisLine: { show: false },
+                axisTick: { show: false }
+            },
+            yAxis: {
+                type: 'value',
+                show: false, // Ocultar eje Y para limpieza, ya que tenemos tooltip
+                scale: true
+            },
+            series: [
+                {
+                    data: data,
+                    type: 'line',
+                    smooth: true,
+                    lineStyle: {
+                        width: 3,
+                        color: curr.color === 'blue' ? '#00f3ff' : curr.color === 'purple' ? '#bc13fe' : '#0aff0a'
+                    },
+                    itemStyle: {
+                        color: curr.color === 'blue' ? '#00f3ff' : curr.color === 'purple' ? '#bc13fe' : '#0aff0a'
+                    },
+                    areaStyle: {
+                         opacity: 0.2,
+                         color: curr.color === 'blue' ? '#00f3ff' : curr.color === 'purple' ? '#bc13fe' : '#0aff0a'
+                    },
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: 'Max' },
+                            { type: 'min', name: 'Min' }
+                        ],
+                        label: { color: '#fff' }
+                    }
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+        
+        // Redimensionar gráfico si cambia el tamaño de la ventana
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
     });
     
     document.getElementById('last-updated').innerText = 'DOP_SYNC: ' + new Date().toLocaleTimeString();
