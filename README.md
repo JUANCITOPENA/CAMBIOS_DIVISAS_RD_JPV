@@ -1,188 +1,307 @@
-# 🚀 GUÍA MAESTRA: NEON EXCHANGE (DOP ANALYTICS)
+# 🎓 MASTERCLASS: NEON EXCHANGE (DOP ANALYTICS)
 
-![Banner](https://img.shields.io/badge/NIVEL-PRINCIPIANTE%20%2F%20INTERMEDIO-green?style=for-the-badge&logo=codecademy)
-![Stack](https://img.shields.io/badge/Tecnologías-HTML%20%2B%20JS%20%2B%20NODE-blue?style=for-the-badge)
-![Status](https://img.shields.io/badge/TUTORIAL-ACTIVO-orange?style=for-the-badge)
+![Nivel](https://img.shields.io/badge/NIVEL-ZERO%20TO%20HERO-blueviolet?style=for-the-badge&logo=academic)
+![Tipo](https://img.shields.io/badge/PROYECTO-EDUCATIVO-orange?style=for-the-badge)
+![Stack](https://img.shields.io/badge/FULLSTACK-NODE%20%2B%20JS-green?style=for-the-badge)
 
-> **"Aprende a crear un Dashboard Financiero Profesional desde cero."**
-> Este manual te guiará paso a paso para construir una aplicación que consulta el precio del dólar en tiempo real y muestra gráficos interactivos.
-
----
-
-## 📚 Tabla de Contenidos
-
-1.  [🛠️ Fase 1: Tu Caja de Herramientas (Prerrequisitos)](#-fase-1-tu-caja-de-herramientas-prerrequisitos)
-2.  [🔑 Fase 2: Consigue tu Llave Maestra (API Key)](#-fase-2-consigue-tu-llave-maestra-api-key)
-3.  [🧬 Fase 3: Anatomía del Proyecto (Estructura)](#-fase-3-anatomía-del-proyecto-estructura)
-4.  [🚀 Fase 4: Instalación (Elige tu camino)](#-fase-4-instalación-elige-tu-camino)
-5.  [🧠 Fase 5: Entendiendo el Cerebro (Explicación de Código)](#-fase-5-entendiendo-el-cerebro-explicación-de-código)
-6.  [✨ Fase 6: Ejecución y Uso](#-fase-6-ejecución-y-uso)
-7.  [🚑 Solución de Problemas (Troubleshooting)](#-solución-de-problemas-troubleshooting)
+> **"No solo copies código. Entiende cómo funciona el dinero y la tecnología."**
 
 ---
 
-## 🛠️ Fase 1: Tu Caja de Herramientas (Prerrequisitos)
+## 📑 ÍNDICE DEL CURSO
 
-Antes de empezar, necesitas instalar los programas que usan los programadores profesionales. ¡Es gratis!
-
-| Herramienta | ¿Para qué sirve? | Enlace de Descarga |
-| :--- | :--- | :--- |
-| **Node.js** | El motor que hace funcionar tu servidor. | [Descargar Node.js (LTS)](https://nodejs.org/es/) |
-| **Git** | Para guardar tu progreso y descargarlo. | [Descargar Git](https://git-scm.com/) |
-| **VS Code** | El editor de texto donde escribiremos código. | [Descargar VS Code](https://code.visualstudio.com/) |
-
-> **Verificación:** Abre tu terminal (CMD o PowerShell) y escribe `node -v`. Si salen números (ej: v18.16.0), ¡estás listo!
-
----
-
-## 🔑 Fase 2: Consigue tu Llave Maestra (API Key)
-
-Necesitamos datos reales. Usaremos **ExchangeRate-API**, que nos regala 1,500 consultas al mes.
-
-1.  Ve a [ExchangeRate-API](https://www.exchangerate-api.com/).
-2.  Ingresa tu correo y haz clic en **"Get Free Key"**.
-3.  Te enviarán un correo. Confírmalo y entra al panel.
-4.  Verás un código largo como: `a1b2c3d4e5f6...`. **¡Cópialo! Esa es tu API Key.**
+1.  [🌍 Introducción y Planteamiento](#-introducción-y-planteamiento)
+2.  [🧠 Teoría: ¿Qué estamos construyendo?](#-teoría-qué-estamos-construyendo)
+3.  [🏗️ Arquitectura del Sistema](#-arquitectura-del-sistema)
+4.  [🛠️ Fase 1: Preparación (Setup)](#-fase-1-preparación-setup)
+5.  [💻 Fase 2: El Backend (El Servidor)](#-fase-2-el-backend-el-servidor)
+6.  [🎨 Fase 3: El Frontend (La Interfaz)](#-fase-3-el-frontend-la-interfaz)
+7.  [🧠 Fase 4: La Lógica (El Cerebro)](#-fase-4-la-lógica-el-cerebro)
+8.  [🚀 Fase 5: Ejecución y Pruebas](#-fase-5-ejecución-y-pruebas)
+9.  [💡 Consejos Pro y Conclusión](#-consejos-pro-y-conclusión)
 
 ---
 
-## 🧬 Fase 3: Anatomía del Proyecto (Estructura)
+## 🌍 1. INTRODUCCIÓN Y PLANTEAMIENTO
 
-Así organizaremos nuestras carpetas. Imagina que es una casa:
+### 🛑 El Problema
+Imagina que quieres viajar o comprar algo en Amazon. Necesitas dólares. Buscas en Google y dice "62.70". Vas al banco y te dicen "No, te lo vendemos a 63.50". **¿Por qué?**
+Además, los sitios web financieros suelen ser aburridos, llenos de tablas grises y difíciles de entender.
+
+### ✅ La Solución
+Vamos a construir **Neon Exchange**: Una aplicación web moderna, con estilo "Cyberpunk" (luces de neón), que:
+1.  Obtiene el precio **REAL** del mercado (usando una API profesional).
+2.  Calcula automáticamente el precio de **COMPRA** y **VENTA** (como un banco real).
+3.  Muestra gráficos históricos interactivos.
+4.  Te permite calcular conversiones al instante.
+
+---
+
+## 🧠 2. TEORÍA: ¿QUÉ ESTAMOS CONSTRUYENDO?
+
+Antes de escribir código, definamos los conceptos clave.
+
+### 🔌 ¿Qué es una API? (Application Programming Interface)
+Imagina que estás en un restaurante:
+*   **Tú (El Cliente):** Eres el Frontend (la página web).
+*   **La Cocina (La Base de Datos):** Tiene los ingredientes (los datos del dinero).
+*   **El Camarero (La API):** Es el intermediario. Tú le pides "Tráeme el precio del dólar", él va a la cocina, lo busca y te lo trae.
+
+En este proyecto usamos **ExchangeRate-API**, un servicio que monitorea los bancos centrales del mundo y nos da los datos en formato JSON.
+
+### 🛡️ ¿Por qué un Backend (Node.js)?
+¿Por qué no pedir los datos directamente desde el navegador? **SEGURIDAD**.
+Si pones tu "Llave Secreta" (API Key) en el HTML, cualquiera puede robártela. Por eso creamos un servidor intermedio (Proxy) que guarda el secreto y hace la petición por ti.
+
+---
+
+## 🏗️ 3. ARQUITECTURA DEL SISTEMA
+
+Así se organiza nuestro proyecto en tu computadora. Cada archivo tiene una misión.
 
 ```plaintext
 MI-PROYECTO/
-├── .env                <-- La caja fuerte (Aquí guardamos la API Key secreta)
-├── .gitignore          <-- Lista de cosas que NO subimos a internet
-├── package.json        <-- El DNI del proyecto (Dice qué librerías usa)
-├── server.js           <-- El COCINERO (Backend). Busca los datos.
-└── public/             <-- El COMEDOR (Frontend). Lo que ve el cliente.
-    ├── index.html      <-- La estructura de la página.
-    ├── style.css       <-- La pintura y decoración (Diseño Neon).
-    └── script.js       <-- El camarero (Mueve los datos a la mesa).
+│
+├── .env                🔒 LA CAJA FUERTE (Aquí guardamos la API Key secreta)
+├── package.json        📄 EL DOCUMENTO DE IDENTIDAD (Lista de dependencias)
+├── server.js           👮 EL GUARDAESPALDAS (Servidor Backend en Node.js)
+│
+└── public/             🖼️ EL ESCAPARATE (Carpeta pública)
+    ├── index.html      🦴 EL ESQUELETO (Estructura de la página)
+    ├── style.css       🎨 EL MAQUILLAJE (Colores, neón, fuentes)
+    └── script.js       🧠 EL CEREBRO (Lógica, matemáticas y gráficos)
 ```
 
 ---
 
-## 🚀 Fase 4: Instalación (Elige tu camino)
+## 🛠️ 4. FASE 1: PREPARACIÓN (SETUP)
 
-### 🛣️ Camino A: "Quiero clonarlo y correrlo YA" (Rápido)
+### Paso 1: Instalar Herramientas
+Necesitas **Node.js** (el motor) y **VS Code** (el taller).
+*   [Descargar Node.js](https://nodejs.org/)
+*   [Descargar VS Code](https://code.visualstudio.com/)
 
-Si solo quieres ver cómo funciona el proyecto de Juancito:
+### Paso 2: Crear el Proyecto
+Abre tu terminal, crea una carpeta y ejecuta:
 
-1.  Abre tu terminal y escribe:
-    ```bash
-    git clone https://github.com/JUANCITOPENA/CAMBIOS_DIVISAS_RD_JPV.git
-    cd CAMBIOS_DIVISAS_RD_JPV
-    ```
-2.  Instala las librerías automáticas:
-    ```bash
-    npm install
-    ```
-3.  Crea un archivo llamado `.env` y pega tu clave:
-    ```env
-    API_KEY=PEGAR_TU_CLAVE_AQUI
-    PORT=3001
-    ```
-4.  ¡Listo! Salta a la **Fase 6**.
+```bash
+npm init -y
+```
+Esto crea el archivo `package.json`.
 
-### 🛣️ Camino B: "Quiero aprender y hacerlo yo mismo" (Recomendado)
+### Paso 3: Instalar Dependencias
+Instalamos las librerías que harán el trabajo duro:
 
-1.  Crea una carpeta nueva en tu PC.
-2.  Abre la terminal en esa carpeta y escribe:
-    ```bash
-    npm init -y
-    ```
-    *(Esto crea el archivo package.json)*.
-3.  Instala las herramientas necesarias:
-    ```bash
-    npm install express dotenv node-fetch
-    ```
-    *   `express`: Para crear el servidor web.
-    *   `dotenv`: Para leer el archivo .env (seguridad).
-    *   `node-fetch`: Para que el servidor pueda "navegar" y buscar datos.
+```bash
+npm install express dotenv node-fetch
+```
+*   `express`: Crea el servidor web fácilmente.
+*   `dotenv`: Permite leer el archivo `.env`.
+*   `node-fetch`: Permite al servidor "navegar" a la API externa.
+
+### Paso 4: Configurar Variables (.env)
+Crea un archivo llamado `.env` en la raíz y pega esto:
+
+```env
+# Regístrate en exchangerate-api.com para obtener tu clave
+API_KEY=TU_CLAVE_SECRETA_AQUI
+PORT=3001
+```
 
 ---
 
-## 🧠 Fase 5: Entendiendo el Cerebro (Explicación de Código)
+## 💻 5. FASE 2: EL BACKEND (EL SERVIDOR)
 
-### 1. El Servidor (`server.js`)
-¿Por qué necesitamos esto? Porque si pones tu API Key en el HTML, ¡cualquiera podría robártela! El servidor actúa de **Escudo**.
+Crea el archivo `server.js` en la raíz. Este script es el "intermediario seguro".
+
+**📂 Archivo: `server.js`**
 
 ```javascript
-// Carga las librerías
-const express = require('express'); 
-const app = express();
+// Importamos las herramientas
+const express = require('express');
+const dotenv = require('dotenv');
+const path = require('path');
 
-// Ruta secreta: Cuando el frontend pida "/api/get-rates"...
+// Configuramos las herramientas
+dotenv.config(); // Lee el archivo .env
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Servimos los archivos estáticos (HTML, CSS, JS) de la carpeta 'public'
+app.use(express.static('public'));
+
+// RUTA SEGURA: El frontend llama aquí, no a la API externa directamente
 app.get('/api/get-rates', async (req, res) => {
-    // ...el servidor usa la llave secreta para pedir los datos reales
-    const response = await fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`);
-    const data = await response.json();
-    res.json(data); // Y se los entrega al frontend
+    try {
+        // Importamos 'node-fetch' dinámicamente (compatible con versiones nuevas)
+        const fetch = (await import('node-fetch')).default;
+        
+        // El servidor hace la petición a la API externa usando la CLAVE SECRETA
+        const apiResponse = await fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`);
+        const data = await apiResponse.json();
+
+        // Enviamos los datos limpios al frontend
+        res.json(data);
+    } catch (error) {
+        console.error("Error en el servidor:", error);
+        res.status(500).json({ error: "Error al conectar con la API financiera" });
+    }
+});
+
+// Encendemos el servidor
+app.listen(PORT, () => {
+    console.log(`✅ Servidor Financiero Activo en: http://localhost:${PORT}`);
 });
 ```
 
-### 2. El Frontend (`public/script.js`)
-Aquí ocurre la magia visual.
+---
 
-*   **Lógica de Compra/Venta:**
-    Como la API nos da un precio "promedio" (ej: 62.70), simulamos una casa de cambio real:
-    ```javascript
-    // Le bajamos 0.5% para decir "Te lo compro a este precio"
-    const buyRate = midRate * 0.995; 
-    
-    // Le subimos 0.5% para decir "Te lo vendo a este precio"
-    const sellRate = midRate * 1.005; 
-    ```
+## 🎨 6. FASE 3: EL FRONTEND (LA INTERFAZ)
 
-*   **Gráficos (ECharts):**
-    Usamos una librería llamada Apache ECharts. Configuramos el eje X (fechas) y el eje Y (valores) para dibujar las líneas de tendencia.
+Ahora vamos a la carpeta `public/`.
+
+**📂 Archivo: `public/index.html`**
+La estructura visual. Usamos **Bootstrap** para que sea responsivo (se vea bien en celular y PC).
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Neon Exchange | JPV</title>
+    <!-- Cargamos Bootstrap (Diseño) y FontAwesome (Iconos) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Nuestra hoja de estilo personalizada -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Encabezado con Créditos -->
+    <div class="container mt-5 text-center">
+        <h1 class="text-white display-4 fw-bold">Cambios de Divisas vs DOP RD$</h1>
+        <div class="mt-3 p-2 d-inline-block rounded" style="background: rgba(0,0,0,0.5); border: 1px solid #333;">
+            <p class="mb-0 text-light small">
+                <i class="fas fa-info-circle text-info"></i> Datos: ExchangeRate-API | Ref: Google Spot
+            </p>
+        </div>
+    </div>
+
+    <!-- Calculadora Maestra -->
+    <div class="container mt-4 text-center">
+        <label class="text-info small">MULTIPLICADOR (X)</label>
+        <input type="number" id="master-amount" class="form-control w-25 mx-auto text-center" value="1" oninput="applyMultiplier()">
+    </div>
+
+    <!-- AQUÍ SE DIBUJARÁN LAS TARJETAS AUTOMÁTICAMENTE -->
+    <div class="container mt-5">
+        <div class="row g-4" id="currency-grid"></div>
+    </div>
+
+    <!-- Resumen Ejecutivo -->
+    <div class="container mt-5 mb-5">
+        <!-- (Código del resumen ejecutivo explicado en secciones anteriores...) -->
+    </div>
+
+    <!-- Cargamos ECharts (Gráficos) y nuestro Script -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+```
 
 ---
 
-## ✨ Fase 6: Ejecución y Uso
+## 🧠 7. FASE 4: LA LÓGICA (EL CEREBRO)
 
-1.  En tu terminal, dentro de la carpeta del proyecto:
+Aquí ocurre la magia matemática y visual.
+
+**📂 Archivo: `public/script.js`**
+
+```javascript
+// Definimos las monedas que queremos rastrear
+const currencyData = [
+    { code: 'USD', name: 'Dólar USA', flag: 'us', color: 'blue' },
+    { code: 'EUR', name: 'Euro', flag: 'eu', color: 'purple' },
+    // ... más monedas ...
+];
+
+let currentRates = {};
+
+// Función Principal: Se ejecuta al cargar la página
+async function updateRates() {
+    try {
+        // Pedimos los datos a NUESTRO servidor (no a la API directa)
+        const response = await fetch('/api/get-rates');
+        const data = await response.json();
+        
+        currentRates = data.conversion_rates; // Guardamos las tasas
+        renderGrid(); // Dibujamos la interfaz
+    } catch (error) {
+        alert("Error cargando datos financieros");
+    }
+}
+
+// Función de Dibujado
+function renderGrid() {
+    const grid = document.getElementById('currency-grid');
+    grid.innerHTML = ''; // Limpiamos la pantalla
+
+    currencyData.forEach(curr => {
+        // MATEMÁTICA FINANCIERA
+        // La API nos da cuánto vale 1 USD en esa moneda.
+        // Invertimos (1 / rate) para saber cuánto vale 1 de esa moneda en USD/DOP.
+        const midRate = 1 / currentRates[curr.code]; 
+        
+        // Aplicamos el MARGEN (Spread) del 0.5%
+        const buyRate = midRate * 0.995; // Te pago menos
+        const sellRate = midRate * 1.005; // Te cobro más
+
+        // Generamos el HTML de la tarjeta
+        // ... (Ver archivo real para el template string completo) ...
+        
+        // Generamos el Gráfico con ECharts
+        // Simulamos un historial basado en la tasa actual para efectos visuales
+        // ... (Configuración de ECharts) ...
+    });
+}
+```
+
+---
+
+## 🚀 8. FASE 5: EJECUCIÓN Y PRUEBAS
+
+¡Hora de la verdad!
+
+1.  Abre la terminal en la carpeta del proyecto.
+2.  Ejecuta:
     ```bash
     npm start
     ```
-2.  Verás un mensaje: `✅ Servidor corriendo en http://localhost:3001`.
-3.  Abre tu navegador (Chrome, Edge, etc.) y entra a:
-    👉 **http://localhost:3001**
+3.  Verás el mensaje de éxito.
+4.  Abre tu navegador en `http://localhost:3001`.
 
-### ¿Qué puedes hacer?
-*   **Multiplicador:** Escribe "100" arriba y verás cuánto son 100 dólares en pesos.
-*   **Gráficos:** Pasa el mouse sobre las líneas para ver el historial.
-*   **Comparar:** Mira el valor "Ref (Google)" en el centro y compáralo con los precios de Compra/Venta.
-
----
-
-## 🚑 Solución de Problemas (Troubleshooting)
-
-**🔴 Error: "Command not found: npm"**
-*   *Solución:* No instalaste Node.js. Ve a la Fase 1 e instálalo.
-
-**🔴 Error: "404 Not Found" o Gráficos vacíos**
-*   *Solución:* Revisa tu archivo `.env`. ¿Pusiste la API Key correcta? ¿El archivo se llama exactamente `.env`?
-
-**🔴 Error: "Port 3001 already in use"**
-*   *Solución:* Ya tienes el programa abierto en otra terminal. Ciérrala o cambia el puerto en el archivo `.env`.
+**🧪 Pruebas que debes hacer:**
+*   **Test de Realidad:** Busca en Google "1 Euro a USD". Compara con el valor "Ref (Google)" de tu app. Deben ser casi idénticos.
+*   **Test de Spread:** Verifica que el precio de "Venta" sea siempre mayor que el de "Compra". ¡Así ganan los bancos!
+*   **Test de Interacción:** Pasa el mouse sobre el gráfico. ¿Aparece el tooltip con la fecha?
 
 ---
 
-## 🤝 Contribución
+## 💡 9. CONSEJOS PRO Y CONCLUSIÓN
 
-¿Quieres mejorar esto? ¡Genial!
+### 🎓 ¿Por qué este proyecto es importante?
+Muchos tutoriales te enseñan a hacer una lista de tareas (To-Do List). Eso es aburrido.
+Este proyecto te enseña:
+1.  **Consumo de APIs reales:** Datos que cambian segundo a segundo.
+2.  **Seguridad Backend:** Ocultar secretos.
+3.  **Visualización de Datos:** No solo mostrar números, sino tendencias gráficas.
+4.  **Matemática Financiera Básica:** Entender el Spread.
 
-1.  Haz un **Fork** (Copia) del proyecto en GitHub.
-2.  Mejora el código (ej: añade más monedas).
-3.  Envía un **Pull Request** explicando tu mejora.
+### 🌟 Mensaje Final
+> "La programación no se trata solo de escribir código. Se trata de **resolver problemas reales** y hacer que la información compleja sea hermosa y accesible. Hoy has creado una herramienta que podría estar en el lobby de un hotel o en la pantalla de un trader. **¡Sigue construyendo!**"
 
 ---
 <div align="center">
-    <p>Hecho con fines educativos 🎓 por <b>Juancito Peña</b></p>
-    <p>
-        <a href="https://github.com/JUANCITOPENA"><img src="https://img.shields.io/badge/GitHub-Ver_Perfil-black?logo=github" alt="Github"></a>
-    </p>
+    <p>Desarrollado con pasión educativa 💙 por <b>Juancito Peña</b></p>
 </div>
