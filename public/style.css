@@ -1,59 +1,173 @@
-:root {
-    --bg-black: #000000;
-    --bg-card: #050505;
-    --neon-blue: #00f3ff;
-    --neon-purple: #bc13fe;
-    --neon-green: #0aff0a;
-    --text-white: #ffffff;
-}
+      :root {
+            --bg-black: #000000;
+            --bg-card: #050505;
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-green: #0aff0a;
+            --text-white: #ffffff;
+        }
 
-body {
-    background-color: var(--bg-black);
-    color: var(--text-white);
-    font-family: 'Roboto Mono', monospace;
-    background-image: linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-}
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            font-family: 'Roboto Mono', monospace;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            min-height: 100vh;
+        }
 
-h1, .navbar-brand, .rate-display { font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
+        h1, h2, h3, .navbar-brand, .rate-display, .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-.navbar { background: rgba(0,0,0,0.95); border-bottom: 2px solid var(--neon-blue); backdrop-filter: blur(10px); }
+        /* Navbar */
+        .navbar {
+            background-color: rgba(0,0,0,0.9);
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
 
-.profile-trigger {
-    width: 50px; height: 50px; border-radius: 50%; object-fit: cover; cursor: pointer;
-    border: 3px solid var(--neon-blue); outline: 3px solid var(--neon-purple); outline-offset: 2px;
-    animation: heartBeat 1.5s infinite;
-}
+        .navbar-brand {
+            color: var(--text-white) !important;
+            font-weight: 900;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
 
-@keyframes heartBeat {
-    0% { transform: scale(1); }
-    14% { transform: scale(1.1); box-shadow: 0 0 20px var(--neon-blue); }
-    28% { transform: scale(1); }
-    100% { transform: scale(1); }
-}
+        /* Foto Navbar con Latido y Bordes Dobles */
+        .profile-trigger {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 3px solid var(--neon-blue);
+            outline: 3px solid var(--neon-purple);
+            outline-offset: 2px;
+            animation: heartBeatCustom 1.5s infinite;
+            transition: 0.3s;
+        }
 
-.master-calc-container { max-width: 500px; margin: 0 auto 40px; border: 1px solid var(--neon-blue); padding: 20px; background: rgba(0, 243, 255, 0.05); }
-.master-input { background: transparent; border: 1px solid var(--neon-purple); color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.8rem; text-align: center; width: 100%; outline: none; }
+        @keyframes heartBeatCustom {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.7); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 243, 255, 0); }
+        }
 
-.cyber-card { background: var(--bg-card); border: 1px solid #333; padding: 20px; position: relative; transition: 0.3s; height: 100%; }
-.cyber-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; }
-.cyber-card:hover { transform: translateY(-5px); border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 243, 255, 0.3); }
+        /* Input Maestro */
+        .master-calc-container {
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border: 1px solid var(--neon-blue);
+        }
 
-.border-blue::before { background: var(--neon-blue); }
-.border-purple::before { background: var(--neon-purple); }
-.border-green::before { background: var(--neon-green); }
+        .master-input {
+            background: transparent;
+            border: 1px solid var(--neon-purple);
+            color: var(--neon-green);
+            font-family: 'Orbitron';
+            font-size: 1.5rem;
+            text-align: center;
+            width: 100%;
+            outline: none;
+        }
 
-.flag-icon { width: 45px; height: 45px; border-radius: 50%; border: 2px solid white; object-fit: cover; }
-.rate-display { font-size: 2.2rem; font-weight: 900; }
+        /* Tarjetas Estilo Cyberpunk */
+        .cyber-card {
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 0;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            height: 100%;
+        }
 
-/* Modal */
-.modal-content { background: #080808; border: 2px solid var(--neon-blue); border-radius: 0; }
-.bio-text { color: #d0d0d0; line-height: 1.7; text-align: justify; margin-bottom: 15px; font-size: 0.9rem; }
-.modal-profile-img { width: 150px; height: 150px; border: 4px solid var(--neon-purple); outline: 4px solid var(--neon-blue); object-fit: cover; }
-.tech-badge { background: rgba(0, 243, 255, 0.1); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 4px 10px; margin: 3px; font-size: 0.75rem; display: inline-block; }
-.tech-category-title { color: var(--neon-purple); border-left: 3px solid var(--neon-purple); padding-left: 10px; font-weight: bold; margin-bottom: 10px; font-size: 0.8rem; }
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+        }
 
-.btn-cyber { background: transparent; color: var(--neon-blue); border: 1px solid var(--neon-blue); font-family: 'Orbitron'; font-weight: bold; clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%); }
-.btn-cyber:hover { background: var(--neon-blue); color: #000; }
+        .border-blue::before { background: var(--neon-blue); }
+        .border-purple::before { background: var(--neon-purple); }
+        .border-green::before { background: var(--neon-green); }
 
-#loader-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .flag-icon {
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--text-white);
+            object-fit: cover;
+        }
+
+        .rate-display {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        /* Modal Custom Wide */
+        .modal-content {
+            background: #080808;
+            border: 2px solid var(--neon-blue);
+            color: white;
+            border-radius: 0;
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.3);
+        }
+
+        .bio-text {
+            color: #d0d0d0;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            text-align: justify;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--neon-blue);
+            padding: 4px 10px;
+            margin: 3px;
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .tech-category-title {
+            color: var(--neon-purple);
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            border-left: 3px solid var(--neon-purple);
+            padding-left: 10px;
+        }
+
+        #loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+
+        .btn-cyber {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            padding: 8px 20px;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+        .btn-cyber:hover { background: var(--neon-blue); color: #000; }
